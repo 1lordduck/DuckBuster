@@ -25,13 +25,13 @@ This project was created as a learning exercise to enhance my knowledge of web d
 ## Usage
 
 DuckBuster brute-forces hidden directories by taking a website URL (`-u`) and a wordlist (`-w`).  
-You can also provide a threshold value (`-T`)—**note: this feature is not implemented yet as of May 1, 2025**.
+You can also provide a threshold value (`-T`)
 
 ### Available Options
 
 - `-u URL` — The target website URL to brute-force.
 - `-w WORDLIST` — Path to the wordlist used for brute-forcing.
-- `-T THRESHOLD` — Optional: Set a threshold value (currently not implemented).
+- `-T THRESHOLD` — How fast we send out requests
 
 ### Example
 

@@ -1,4 +1,4 @@
-import argparse, sys
+import argparse, sys, time 
 from urllib.error import HTTPError, URLError
 import urllib.request
 import urllib.parse
@@ -50,7 +50,7 @@ class duckbuster:
     def setup_arguments(self) -> None:
         self.parser.add_argument("-w", "-WORDLIST",help="Wordlist Path")
         self.parser.add_argument("-u", "-URL", help="Target URL")
-        self.parser.add_argument("-T", "-THRESHOLD", help="How fast we send out requests")
+        self.parser.add_argument("-T", "-THRESHOLD", help="How fast we send out requests", default=0, type=int)
 
 
     def load_wordlist(self, wordlist):
@@ -66,7 +66,7 @@ class duckbuster:
         return lines
 
 
-    def bruteforce(self, wordlist, target):
+    def bruteforce(self, wordlist, target, threshold):
         if len(wordlist) == 0:
             print(f"{Color.RED} [!] An error occurred while discovering directories: {Color.RESET} Wordlist was somehow empty.")
             return
@@ -74,6 +74,7 @@ class duckbuster:
         print("[/] Starting...")
         for word in wordlist:
             try:
+                time.sleep(threshold)
                 url = f"{target}/{word}"
                 response = requests().get(url)
                 # print(f"Checking: {url}")
@@ -100,12 +101,13 @@ class duckbuster:
                   Author: 1lordduck
               {Color.RESET}""")
         args = self.parser.parse_args()
-        target = args.u 
+        target = args.u
         wordlist = args.w 
+        threshold = args.T
 
         words = self.load_wordlist(wordlist)
 
-        self.bruteforce(words, target)
+        self.bruteforce(words, target, threshold)
 
 
 def main() -> None:
